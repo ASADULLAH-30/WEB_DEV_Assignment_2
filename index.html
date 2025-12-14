@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registration Form with Live Validation</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="page">
+    <div class="card">
+      <header class="header">
+        <h1 class="title">Create your account</h1>
+        <p class="subtitle">Please provide your authentic personal details. This information will be verified 
+against official records.</p>
+      </header>
+
+      <form id="registrationForm" class="form" novalidate>
+        <div class="grid-two">
+          <!-- First Name -->
+          <div class="form-field" id="firstNameField">
+            <label for="firstName" class="label">First Name</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="First name" class="input" />
+            <!-- Error small appended dynamically below -->
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-field" id="lastNameField">
+            <label for="lastName" class="label">Last Name</label>
+            <input id="lastName" name="lastName" type="text" autocomplete="family-name" placeholder="Last name" class="input" />
+            <!-- Error small appended dynamically below -->
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-field" id="emailField">
+          <label for="email" class="label">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" class="input" />
+          <!-- Error small appended dynamically below -->
+        </div>
+
+        <div class="grid-two">
+          <!-- Password -->
+          <div class="form-field" id="passwordField">
+            <label for="password" class="label">Password</label>
+            <input id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" class="input" />
+            <!-- Error small appended dynamically below -->
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-field" id="confirmPasswordField">
+            <label for="confirmPassword" class="label">Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Re-enter password" class="input" />
+            <!-- Error small appended dynamically below -->
+          </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-field" id="genderField">
+          <span class="label">Gender</span>
+          <div class="radio-group">
+            <label><input type="radio" id="genderMale" name="gender" value="Male" /> Male</label>
+            <label><input type="radio" id="genderFemale" name="gender" value="Female" /> Female</label>
+          </div>
+          <!-- Error small appended dynamically below -->
+        </div>
+
+        <!-- Country -->
+        <div class="form-field" id="countryField">
+          <label for="country" class="label">Country</label>
+          <select id="country" name="country" class="select">
+            <option value="" selected disabled>Select Country</option>
+            <option value="PK">Pakistan</option>
+            <option value="IN">India</option>
+            <option value="BD">Bangladesh</option>
+            <option value="AF">Afghanistan</option>
+            <option value="CN">China</option>
+            <option value="US">United States</option>
+            <option value="UK">United Kingdom</option>
+          </select>
+          <!-- Error small appended dynamically below -->
+        </div>
+
+        <!-- Terms -->
+        <div class="form-field" id="termsField">
+          <label class="checkbox">
+            <input type="checkbox" id="terms" name="terms" />
+            <span>I agree to the Terms &amp; Conditions</span>
+          </label>
+          <!-- Error small appended dynamically below -->
+        </div>
+
+        <!-- Submit -->
+        <button id="submitBtn" type="submit" class="btn" disabled>Submit</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
