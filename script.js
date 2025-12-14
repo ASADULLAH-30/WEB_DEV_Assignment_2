@@ -61,11 +61,7 @@ const termsField = document.getElementById('termsField');
 
 // Validation functions return boolean
 function validateFirstName() {
-  const value = firstName.value.trim();
-  if (value.length < 5) {
-    setError(firstNameField, firstName, 'First name must be at least 5 characters long.');
-    return false;
-  }
+  // No minimum length requirement; keep the field clear of errors
   clearError(firstNameField, firstName);
   return true;
 }
