@@ -61,7 +61,11 @@ const termsField = document.getElementById('termsField');
 
 // Validation functions return boolean
 function validateFirstName() {
-  // No minimum length requirement; keep the field clear of errors
+  const value = firstName.value.trim();
+  if (!value) {
+    setError(firstNameField, firstName, 'First name is required.');
+    return false;
+  }
   clearError(firstNameField, firstName);
   return true;
 }
@@ -168,9 +172,71 @@ onChange(terms, validateTerms);
 // Initial state
 syncSubmitState();
 
-// On submit, prevent page reload and run a final validation pass
+// Helper: build or replace submission summary using DOM methods
+function renderSummary() {
+  // Compute display values
+  const fullName = `${firstName.value.trim()} ${lastName.value.trim()}`.trim();
+  const emailVal = email.value.trim();
+  const genderVal = (genderRadios.find(r => r.checked)?.value) || '';
+  const countryOption = country.options[country.selectedIndex];
+  const countryText = countryOption ? countryOption.text : '';
+
+  // Create container
+  const wrapperId = 'submissionSummary';
+  let wrapper = document.getElementById(wrapperId);
+  if (!wrapper) {
+    wrapper = document.createElement('section');
+    wrapper.id = wrapperId;
+    wrapper.style.marginTop = '18px';
+    wrapper.style.paddingTop = '12px';
+    wrapper.style.borderTop = '1px solid #e2e8f0';
+    // Insert after the form
+    form.insertAdjacentElement('afterend', wrapper);
+  } else {
+    // Clear previous contents
+    wrapper.innerHTML = '';
+  }
+
+  const heading = document.createElement('h2');
+  heading.textContent = 'Submission Summary';
+  heading.style.margin = '0 0 8px 0';
+  heading.style.fontSize = '1.1rem';
+  heading.style.fontWeight = '600';
+  wrapper.appendChild(heading);
+
+  const list = document.createElement('ul');
+  list.style.listStyle = 'none';
+  list.style.padding = '0';
+  list.style.margin = '0';
+
+  const items = [
+    ['Name', fullName || '-'],
+    ['Email', emailVal || '-'],
+    ['Country', countryText || '-'],
+    ['Gender', genderVal || '-']
+  ];
+
+  items.forEach(([label, value]) => {
+    const li = document.createElement('li');
+    li.style.marginBottom = '6px';
+    const strong = document.createElement('strong');
+    strong.textContent = `${label}: `;
+    const span = document.createElement('span');
+    span.textContent = value;
+    li.appendChild(strong);
+    li.appendChild(span);
+    list.appendChild(li);
+  });
+
+  wrapper.appendChild(list);
+}
+
+// On submit, prevent page reload, validate, and render summary
 form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  validateFormAll();
+  e.preventDefault(); // event.preventDefault()
+  const ok = validateFormAll();
   syncSubmitState();
+  if (ok) {
+    renderSummary();
+  }
 });
